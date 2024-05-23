@@ -2,7 +2,7 @@ import unittest
 
 from textnode import (
   TextNode,
-  text_type_normal,
+  text_type_text,
   text_type_bold,
   text_type_italic,
   text_type_code,
@@ -12,20 +12,20 @@ from textnode import (
 
 class TestTextNode(unittest.TestCase):
   def test_eq(self):
-    node = TextNode("This is a text node", text_type_normal)
-    node2 = TextNode("This is a text node", text_type_normal)
+    node = TextNode("This is a text node", text_type_text)
+    node2 = TextNode("This is a text node", text_type_text)
 
     self.assertEqual(node, node2)
   
   def test_not_eq(self):
-    node = TextNode("This is a text node", text_type_normal)
+    node = TextNode("This is a text node", text_type_text)
     node2 = TextNode("This is a text node", text_type_bold)
 
     self.assertNotEqual(node, node2)
 
   def test_not_eq2(self):
-    node = TextNode("This is a text node", text_type_normal)
-    node2 = TextNode("This is also a text node", text_type_normal)
+    node = TextNode("This is a text node", text_type_text)
+    node2 = TextNode("This is also a text node", text_type_text)
 
     self.assertNotEqual(node, node2)
 
