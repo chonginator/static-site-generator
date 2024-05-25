@@ -1,11 +1,12 @@
 import unittest
 
 from inline_markdown import (
+  text_to_textnodes,
   split_nodes_delimiter,
-  extract_markdown_images,
-  extract_markdown_links,
   split_nodes_image,
   split_nodes_link,
+  extract_markdown_images,
+  extract_markdown_links,
 )
 
 from textnode import (
@@ -20,6 +21,26 @@ from textnode import (
 
 
 class TestInlineMarkdown(unittest.TestCase):
+  def test_text_to_textnodes(self):
+    text = "This is **text** with an *italic* word and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and a [link](https://boot.dev)"
+    nodes = text_to_textnodes(text)
+
+    self.assertListEqual(
+      nodes,
+      [
+        TextNode("This is ", text_type_text),
+        TextNode("text", text_type_bold),
+        TextNode(" with an ", text_type_text),
+        TextNode("italic", text_type_italic),
+        TextNode(" word and a ", text_type_text),
+        TextNode("code block", text_type_code),
+        TextNode(" and an ", text_type_text),
+        TextNode("image", text_type_image, "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+        TextNode(" and a ", text_type_text),
+        TextNode("link", text_type_link, "https://boot.dev"),
+      ]
+    )
+
   def test_no_closing_delim(self):
     node = TextNode("This is text with a **bolded word missing a delimeter", text_type_text)
 
@@ -93,24 +114,6 @@ class TestInlineMarkdown(unittest.TestCase):
         new_nodes,
     )
 
-  def test_extract_markdown_images(self):
-    text = "This is text with an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and ![another](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png)"
-    images = extract_markdown_images(text)
-
-    self.assertListEqual(images, [
-      ("image", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
-      ("another", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png")
-    ])
-
-  def test_extract_markdown_links(self):
-    text = "This is text with a [link](https://www.example.com) and [another](https://www.example.com/another)"
-    links = extract_markdown_links(text)
-
-    self.assertListEqual(links, [
-      ("link", "https://www.example.com"),
-      ("another", "https://www.example.com/another")
-    ])
-
   def test_split_nodes_image_single(self):
     node = TextNode(
       "This is text with only one ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png)",
@@ -167,6 +170,23 @@ class TestInlineMarkdown(unittest.TestCase):
       ]
     )
 
+  def test_extract_markdown_images(self):
+    text = "This is text with an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and ![another](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png)"
+    images = extract_markdown_images(text)
+
+    self.assertListEqual(images, [
+      ("image", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+      ("another", "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/dfsdkjfd.png")
+    ])
+
+  def test_extract_markdown_links(self):
+    text = "This is text with a [link](https://www.example.com) and [another](https://www.example.com/another)"
+    links = extract_markdown_links(text)
+
+    self.assertListEqual(links, [
+      ("link", "https://www.example.com"),
+      ("another", "https://www.example.com/another")
+    ])
 
 if __name__ == "__main__":
   unittest.main()
