@@ -1,6 +1,6 @@
 def markdown_to_blocks(markdown):
-  blocks = markdown.split("\n")
-  non_empty_blocks = list(filter(lambda block: block != ""), blocks)
+  blocks = markdown.strip().split("\n\n")
+  non_empty_blocks = list(filter(lambda block: block != "", blocks))
 
   stripped_non_empty_blocks = list(
     map(
