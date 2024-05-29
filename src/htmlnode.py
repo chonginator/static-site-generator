@@ -52,7 +52,7 @@ class ParentNode(HTMLNode):
   def __init__(
       self,
       tag: str | None=None,
-      children: dict[str, str] | None=None,
+      children: list[HTMLNode] | None=None,
       props: dict[str, str] | None=None
   ):
     super().__init__(tag, None, children, props)
