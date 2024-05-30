@@ -1,8 +1,14 @@
 import os
-from textnode import TextNode
+import shutil
+from copystatic import copydir
 
 def main():
-  print(os.path.isfile(".gitignor"))
-  pass
+  src_path = "static"
+  dst_path = "public"
+
+  if os.path.exists(dst_path):
+    shutil.rmtree(dst_path)
+
+  copydir(src_path, dst_path)
 
 main()
