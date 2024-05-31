@@ -8,7 +8,7 @@ text_type_link = "link"
 text_type_image = "image"
 
 class TextNode:
-  def __init__(self, text: str, text_type: str, url: str | None=None):
+  def __init__(self, text, text_type, url):
     self.text = text
     self.text_type = text_type
     self.url = url

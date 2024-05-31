@@ -132,7 +132,7 @@ def is_unordered_list(block):
   lines = block.split("\n")
   return all(re.match(r"^[*-] .*?$", line) for line in lines)
 
-def is_ordered_list(block: str):
+def is_ordered_list(block):
   lines = block.split("\n")
   return all(re.match(rf"^{i+1}. .*?$", line) for i, line in enumerate(lines))
   
