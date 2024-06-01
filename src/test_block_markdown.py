@@ -62,10 +62,10 @@ happens.
     self.assertEqual(node.to_html(), "<blockquote>This is a blockquote block</blockquote>")
 
   def test_markdown_unordered_list_to_html_node(self):
-    block = "* This is an **unordered** list\n- This is a bullet point"
+    block = "* **This is** an unordered list\n- This is a bullet point"
     node = unordered_list_to_html_node(block)
 
-    self.assertEqual(node.to_html(), "<ul><li>This is an <b>unordered</b> list</li><li>This is a bullet point</li></ul>")
+    self.assertEqual(node.to_html(), "<ul><li><b>This is</b> an unordered list</li><li>This is a bullet point</li></ul>")
 
   def test_markdown_ordered_list_to_html_node(self):
     block = "1. This is an unordered list\n2. This is a bullet point"

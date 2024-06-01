@@ -1,6 +1,7 @@
 import os
 import shutil
 from copystatic import copydir
+from generatepage import (extract_title, md, generate_page)
 
 def main():
   src_path = "static"
@@ -10,5 +11,8 @@ def main():
     shutil.rmtree(dst_path)
 
   copydir(src_path, dst_path)
+
+  generate_page("content/index.md", "template.html", "public/index.html")
+  
 
 main()
