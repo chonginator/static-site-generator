@@ -1,18 +1,22 @@
 import os
 import shutil
 from copystatic import copydir
-from generatepage import (extract_title, md, generate_page)
+from generatepage import (generate_page, generate_pages_recursive)
+
+dir_path_static = "./static"
+dir_path_public = "./public"
+dir_path_content = "./content"
+template_path = "./template.html"
 
 def main():
-  src_path = "static"
-  dst_path = "public"
+  print("Deleting public directory...")
+  if os.path.exists(dir_path_public):
+    shutil.rmtree(dir_path_public)
 
-  if os.path.exists(dst_path):
-    shutil.rmtree(dst_path)
+  print(f"Copying static files to public directory...")
+  copydir(dir_path_static, dir_path_public)
 
-  copydir(src_path, dst_path)
-
-  generate_page("content/index.md", "template.html", "public/index.html")
+  print("Generating pages...")
+  generate_pages_recursive(dir_path_content, template_path, dir_path_public)
   
-
 main()
