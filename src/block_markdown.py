@@ -76,7 +76,7 @@ def quote_to_html_node(quote):
   return ParentNode("blockquote", children, None)
 
 def unordered_list_to_html_node(unordered_list):
-  lines = [line.strip("*- ") for line in unordered_list.split("\n")]
+  lines = [re.sub(r"^[*|-] ", "", line) for line in unordered_list.split("\n")]
   list_items = [ParentNode("li", text_to_children(line), None) for line in lines]
 
   return ParentNode("ul", list_items, None)
