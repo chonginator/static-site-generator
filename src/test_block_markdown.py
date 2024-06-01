@@ -1,5 +1,4 @@
 import unittest
-from htmlnode import HTMLNode
 from block_markdown import (
   block_type_paragraph,
   block_type_heading,

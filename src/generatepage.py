@@ -58,4 +58,3 @@ def extract_title(markdown):
     raise Exception("Invalid markdown, no h1 present")
   
   return titles[0]
-

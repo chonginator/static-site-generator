@@ -1,10 +1,7 @@
 import re
 
 from textnode import text_node_to_html_node
-from htmlnode import (
-  LeafNode,
-  ParentNode
-)
+from htmlnode import ParentNode
 
 from inline_markdown import text_to_textnodes
 
@@ -136,4 +133,3 @@ def is_ordered_list(block):
   lines = block.split("\n")
   return all(re.match(rf"^{i+1}. .*?$", line) for i, line in enumerate(lines))
   
-
